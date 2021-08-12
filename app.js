@@ -266,6 +266,57 @@ const pageHTML = generatePage(name, github);
 // };
 //   promptUser().then(answers => console.log(answers));
 
+//------------------------- Spread Operator --------------------------------------
+
+// const originalAnimalArr = ['Dog', 'Cat', 'Horse'];
+
+// const workingAnimalArr = originalAnimalArr;
+// workingAnimalArr.push('Bird');
+// In this .push function it's adding "Bird" to both of the arrays. 
+
+
+// Let's say we have an array of data that we want to work with but never directly affect, such as an array of animals. We want to work with the data in the array of animals, but we want to keep the original array untouched.
+// spread operator helps in this.
+// const originalAnimalArr = ['Dog', 'Cat', 'Horse'];
+// const workingAnimalArr = [...originalAnimalArr];
+
+//------------------------- the Rest Operator -------------------------------------
+
+// const finishOrder = [
+//   'Speed Racer',
+//   'Flash Marker Jr.',
+//   'Racer X',
+//   'Snake Oiler',
+//   'Trixie',
+//   'Grey Ghost',
+//   'Taejo Togokhan'
+// ];
+
+// const [first, second, third, ...theRest] = finishOrder;
+
+// The rest operator (...theRest), which packages leftover data under a new array or object—depending on what the source of the data is
+
+//------------------------ .map method ---------------------------------------------
+// const animalArr = ['Dogs', 'Cats', 'Horses', 'Birds'];
+
+// const coolAnimalArr = animalArr.map(animal => {
+//   console.log(animal);
+//   return `${animal} are really cool animals.`;
+// });
+
+//---------------------.filter method -------------------------------------------
+
+// const ageArr = [21, 58, 8, 16, 106, 83, 42, 2, 0];
+
+// const over21Arr = ageArr.filter(age => {
+//   if (age >= 21) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// });
+// => [21, 58, 106, 83, 42];
+
 //---------------Prompting Profile Question & then Project Questions-----------------------------------------------
 
 const fs = require('fs');
@@ -399,11 +450,63 @@ Add a New Project
 promptUser()
   .then(promptProject)
   .then(portfolioData => {
-    console.log(portfolioData);
-    // will be uncommented in lesson 4
-    // const pageHTML = generatePage(portfolioData);
-    // fs.writeFile('./index.html', pageHTML, err => {
-    //   if (err) throw new Error(err);
-    //   console.log('Page created! Check out index.html in this directory to see it!');
-    // });
+    
+   const pageHTML = generatePage(portfolioData);
+
+
+
+    fs.writeFile('./index.html', pageHTML, err => {
+      if (err) throw new Error(err);
+
+      console.log('Page created! Check out index.html in this directory to see it!');
+    });
+
   });
+
+  // const pageHTML = generatePage(mockData);
+
+  // const mockData = {
+  //   name: 'Lernantino',
+  //   github: 'lernantino',
+  //   confirmAbout: true,
+  //   about:
+  //     'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et.',
+  //   projects: [
+  //     {
+  //       name: 'Run Buddy',
+  //       description:
+  //         'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+  //       languages: ['HTML', 'CSS'],
+  //       link: 'https://github.com/lernantino/run-buddy',
+  //       feature: true,
+  //       confirmAddProject: true
+  //     },
+  //     {
+  //       name: 'Taskinator',
+  //       description:
+  //         'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+  //       languages: ['JavaScript', 'HTML', 'CSS'],
+  //       link: 'https://github.com/lernantino/taskinator',
+  //       feature: true,
+  //       confirmAddProject: true
+  //     },
+  //     {
+  //       name: 'Taskmaster Pro',
+  //       description:
+  //         'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+  //       languages: ['JavaScript', 'jQuery', 'CSS', 'HTML', 'Bootstrap'],
+  //       link: 'https://github.com/lernantino/taskmaster-pro',
+  //       feature: false,
+  //       confirmAddProject: true
+  //     },
+  //     {
+  //       name: 'Robot Gladiators',
+  //       description:
+  //         'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque.',
+  //       languages: ['JavaScript'],
+  //       link: 'https://github.com/lernantino/robot-gladiators',
+  //       feature: false,
+  //       confirmAddProject: false
+  //     }
+  //   ]
+  // };
