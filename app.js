@@ -317,9 +317,20 @@ const pageHTML = generatePage(name, github);
 // });
 // => [21, 58, 106, 83, 42];
 
+//--------------ES6 feature called shorthand property names ----------------
+//this is same .... 
+     // module.exports = {
+     //   writeFile: writeFile,
+     //   copyFile: copyFile
+     // };
+
+// // ... as this (shorthand property names): -
+     // module.exports = { writeFile, copyFile };
+
 //---------------Prompting Profile Question & then Project Questions-----------------------------------------------
 
-const fs = require('fs');
+const  { writeFile, copyFile }  = require('./utils/generate-site.js');
+
 const inquirer = require('inquirer');
 const generatePage = require('./src/page-template');
 
@@ -447,33 +458,56 @@ Add a New Project
     });
 };
 
+
 promptUser()
   .then(promptProject)
   .then(portfolioData => {
-    
-   const pageHTML = generatePage(portfolioData);
-
-
-
-  fs.writeFile('./dist/index.html', pageHTML, err => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      console.log('Page created! Check out index.html in this directory to see it!');
-    
-  fs.copyFile('./src/style.css', './dist/style.css', err => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        console.log('Style sheet copied successfully!');  
-        
-    });
-
+    return generatePage(portfolioData);
+  })
+  .then(pageHTML => {
+    return writeFile(pageHTML);
+  })
+  .then(writeFileResponse => {
+    console.log(writeFileResponse);
+    return copyFile();
+  })
+  .then(copyFileResponse => {
+    console.log(copyFileResponse);
+  })
+  .catch(err => {
+    console.log(err);
   });
 
 
+
+// -----------Pyramid of Doom / call back Hell way of writing code -----------------------------------
+// promptUser()
+//   .then(promptProject)
+//   .then(portfolioData => {
+    
+//    const pageHTML = generatePage(portfolioData);
+
+
+
+//   fs.writeFile('./dist/index.html', pageHTML, err => {
+//       if (err) {
+//         console.log(err);
+//         return;
+//       }
+//       console.log('Page created! Check out index.html in this directory to see it!');
+    
+//   fs.copyFile('./src/style.css', './dist/style.css', err => {
+//         if (err) {
+//           console.log(err);
+//           return;
+//         }
+//         console.log('Style sheet copied successfully!');  
+        
+//     });
+
+//   });
+
+//---------------Mock Data --------------------------------------------------------------
 
   // const pageHTML = generatePage(mockData);
 
